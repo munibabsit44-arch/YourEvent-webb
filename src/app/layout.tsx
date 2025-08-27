@@ -4,7 +4,6 @@ import { Poppins } from 'next/font/google'
 
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
-import NavItems from '@/components/ui/shared/NavItems'
 
 
 const poppins = Poppins({

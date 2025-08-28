@@ -1,8 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { clerkClient, WebhookEvent } from '@clerk/nextjs/server'
+import { WebhookEvent } from '@clerk/nextjs/server'
 import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
-
+import { clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
  
 export async function POST(req: Request) {
@@ -15,10 +15,10 @@ export async function POST(req: Request) {
   }
  
   // Get the headers
-  const headerPayload = headers();
-  const svix_id = req.headers.get("svix-id");
-  const svix_timestamp = req.headers.get("svix-timestamp");
-  const svix_signature = req.headers.get("svix-signature");
+  const headerPayload = await headers();
+  const svix_id = headerPayload.get("svix-id");
+  const svix_timestamp = headerPayload.get("svix-timestamp");
+  const svix_signature = headerPayload.get("svix-signature");
  
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
@@ -69,13 +69,13 @@ export async function POST(req: Request) {
     const newUser = await createUser(user);
 
     if(newUser) {
-      
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
           userId: newUser._id
         }
       })
     }
+     
 
     return NextResponse.json({ message: 'OK', user: newUser })
   }
@@ -84,8 +84,8 @@ export async function POST(req: Request) {
     const {id, image_url, first_name, last_name, username } = evt.data
 
     const user = {
-      firstName: first_name! ,
-      lastName: last_name! ,
+      firstName: first_name!,
+      lastName: last_name!,
       username: username!,
       photo: image_url,
     }
@@ -104,5 +104,9 @@ export async function POST(req: Request) {
   }
  
   return new Response('', { status: 200 })
+}
+
+function awiat(arg0: any) {
+  throw new Error('Function not implemented.')
 }
  

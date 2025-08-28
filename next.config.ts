@@ -5,3 +5,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+import dns from "dns";
+dns.setDefaultResultOrder("ipv4first");

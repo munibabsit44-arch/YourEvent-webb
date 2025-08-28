@@ -1,8 +1,8 @@
 
 import { Button } from '@/components/ui/button'
 
-import { getAllEvents } from '@/lib/actions/event.actions';
-import { SearchParamProps } from '@/types';
+// import { getAllEvents } from '@/lib/actions/event.actions';
+// import { SearchParamProps } from '@/types';
 import Image from 'next/image'
 import Link from 'next/link'
 
